@@ -31,7 +31,7 @@ class Cluster:
             sum_one += betta_i[i] ** 2
             sum_two += betta_i[i]
         sum_two = sum_two ** 2
-        tetta_e_squared = (1/0.053) * m.log10(1 + int(np.exp(0.053 * self.tetta **2 ) - 1 ) * sum_one / sum_two)
+        tetta_e_squared = (1/0.053) * m.log(1 + int(np.exp(0.053 * self.tetta **2 ) - 1 ) * sum_one / sum_two)
         return tetta_e_squared
 
     def get_betta(self):
@@ -47,7 +47,7 @@ class Cluster:
     def derive_x1(self):
         tetta_squared = self.get_main_reception_channel_deviation()
         b = self.get_betta()
-        x1 = (10 * m.log10(1/b) - 9) / m.sqrt(self.tetta**2 + tetta_squared)
+        x1 = (10 * m.log(1/b) - 9) / m.sqrt(self.tetta**2 + tetta_squared)
         return x1
 
     def get_signal_to_noise_failure_probability(self):
