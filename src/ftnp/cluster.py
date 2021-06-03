@@ -12,7 +12,9 @@ class Cluster:
         self.signal_to_noise_ratio = signal_to_noise_ratio 
 
     def get_attenuation_of_interfering_signals(self):
-        """Ослабление мешающих сигналов q"""
+        """
+        Ослабление мешающих сигналов
+        """
         q = m.sqrt(3 * self.cluster_dim)
         return q
     
@@ -28,7 +30,9 @@ class Cluster:
             return (1, (q + 1) ** (-4))
     
     def get_main_reception_channel_deviation(self):
-        """тетта^2 с индексом e,отклонения велечины уровня суммарной помехи по основному каналу приема"""
+        """
+        Отклонения велечины уровня суммарной помехи по основному каналу приема
+        """
         betta_i = self.derive_betta_i()
         sum_one = 0
         sum_two = 0
@@ -44,7 +48,9 @@ class Cluster:
         return tetta_e_squared
 
     def get_betta(self):
-        """относительный уровень суммарной помехи по основному канала приема"""
+        """
+        Относительный уровень суммарной помехи по основному канала приема
+        """
         betta_i = self.derive_betta_i()
         sum_b = 0
         for i in range(1, betta_i[0] + 1):
@@ -60,6 +66,9 @@ class Cluster:
         return x1
 
     def get_signal_to_noise_failure_probability(self):
+        """
+        Вероятность невыполнения требований по отношению сигнал/шум
+        """
 
         def integrand(x):
             return np.exp((-x**2) / 2) 
