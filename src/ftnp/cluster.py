@@ -17,7 +17,11 @@ class Cluster:
     
     def derive_betta_i(self):
         q = self.get_attenuation_of_interfering_signals()
-        if self.cell_sectors_num == 3:
+        if self.cell_sectors_num == 1:
+            betta1 = betta2 = betta3 = betta4 = (q - 1) ** 4
+            betta5 = betta6 = (q + 1) ** 4
+            return (6, betta1, betta2, betta3, betta4, betta5, betta6)
+        elif self.cell_sectors_num == 3:
             return (2, (q + 0.7) ** (-4), q ** (-4))
         elif self.cell_sectors_num == 6:
             return (1, (q + 1) ** (-4))
