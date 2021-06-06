@@ -16,10 +16,10 @@ class LEB:
 
     def compute_total_losses(
         self,
-        eqv_isotropically_radiated_pow: Tuple(float, float),   # 𝑃БСизл, 𝑃АСизл
-        useful_signal_strength: Tuple(float, float),    # 𝑃𝑚𝑖𝑛−БС, 𝑃𝑚𝑖𝑛−АС
-        line_loss_margin: Tuple(float, float),  # 𝑍БС−АС, 𝑍АС−БС
-    ) -> Tuple(float, float):
+        eqv_isotropically_radiated_pow: Tuple[float, float],   # 𝑃БСизл, 𝑃АСизл
+        useful_signal_strength: Tuple[float, float],    # 𝑃𝑚𝑖𝑛−БС, 𝑃𝑚𝑖𝑛−АС
+        line_loss_margin: Tuple[float, float],  # 𝑍БС−АС, 𝑍АС−БС
+    ) -> Tuple[float, float]:
         """
         Суммарные потери радиосигнала при распространении радиоволн от 
         базовой станции к абонентской станции
