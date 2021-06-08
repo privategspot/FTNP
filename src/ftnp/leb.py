@@ -4,9 +4,9 @@ import numpy as np
 
 
 class CityType(Enum):
-    SMALL = 1
-    MEDIUM = 2
-    LARGE = 3
+    SMALL = "small"
+    MEDIUM = "medium"
+    LARGE = "large"
 
 
 class LEB:
@@ -16,10 +16,10 @@ class LEB:
 
     def compute_total_losses(
         self,
-        eqv_isotropically_radiated_pow: Tuple(float, float),   # 𝑃БСизл, 𝑃АСизл
-        useful_signal_strength: Tuple(float, float),    # 𝑃𝑚𝑖𝑛−БС, 𝑃𝑚𝑖𝑛−АС
-        line_loss_margin: Tuple(float, float),  # 𝑍БС−АС, 𝑍АС−БС
-    ) -> Tuple(float, float):
+        eqv_isotropically_radiated_pow: Tuple[float, float],   # 𝑃БСизл, 𝑃АСизл
+        useful_signal_strength: Tuple[float, float],    # 𝑃𝑚𝑖𝑛−БС, 𝑃𝑚𝑖𝑛−АС
+        line_loss_margin: Tuple[float, float],  # 𝑍БС−АС, 𝑍АС−БС
+    ) -> Tuple[float, float]:
         """
         Суммарные потери радиосигнала при распространении радиоволн от 
         базовой станции к абонентской станции
@@ -30,8 +30,8 @@ class LEB:
             необходимая мощность полезного сигнала для 50% вероятности обеспечения связью
         :param line_loss_margin: запас по потерям в линии
         """
-        temp1 = eqv_isotropically_radiated_pow[0] - useful_signal_strength[1] - line_loss_margin[0]
-        temp2 = eqv_isotropically_radiated_pow[1] - useful_signal_strength[0] - line_loss_margin[1]
+        temp1 = eqv_isotropically_radiated_pow[0] - useful_signal_strength[1] - line_loss_margin
+        temp2 = eqv_isotropically_radiated_pow[1] - useful_signal_strength[0] - line_loss_margin
         return (temp1, temp2)
 
     def compute_line_loss_margin(
@@ -138,6 +138,8 @@ class LEB:
         :param receiving_antenna_height: высота приемной антенны
         :param city_type: размер города
         """
+        A = None
+        city_type = CityType[city_type]
         if city_type == CityType.SMALL or city_type == CityType.MEDIUM:
             A = (1.1 * np.log10(radio_frequency) - 0.7) *\
                 receiving_antenna_height - ((1.56 * np.log10(radio_frequency) -\
@@ -166,6 +168,8 @@ class LEB:
         :param distance_between_antennas: расстояние между антеннами
         :param city_type: размер города
         """
+        C = None
+        city_type = CityType[city_type]
         if city_type == CityType.SMALL or city_type == CityType.MEDIUM:
             C = 0
         elif city_type == CityType.LARGE:

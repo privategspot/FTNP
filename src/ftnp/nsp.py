@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 class NSP:
@@ -57,20 +58,20 @@ class NSP:
         Расчет телефонной нагрузки на один сектор соты
         """
         traffic_transmission_ch_num = self.traffic_transmission_ch_num
-        call_blocking_admissible_prob = self.call_blocking_admissible_prob
-        if call_blocking_admissible_prob <= np.sqrt(2/(traffic_transmission_ch_num * np.pi)):
+        call_blocking_admissible_prob = self.call_blocking_admissible_prob[0]
+        if call_blocking_admissible_prob <= math.sqrt(2 / (traffic_transmission_ch_num * np.pi)):
             A = traffic_transmission_ch_num * int(
-                1 - np.sqrt(1 - (call_blocking_admissible_prob * np.sqrt(
-                    (traffic_transmission_ch_num * np.pi) /2  ))**(
-                        1/traffic_transmission_ch_num)
+                1 - math.sqrt(1 - (call_blocking_admissible_prob * math.sqrt(
+                    (traffic_transmission_ch_num * np.pi) / 2)) ** (
+                        1 / traffic_transmission_ch_num)
                     )
                 )
             return A
-        elif call_blocking_admissible_prob > np.sqrt(2/(traffic_transmission_ch_num * np.pi)):
-            A = traffic_transmission_ch_num + np.sqrt(
-                np.pi/2 + 2 * traffic_transmission_ch_num * np.log10(
-                    call_blocking_admissible_prob * np.sqrt(
-                        (traffic_transmission_ch_num * np.pi)/2))) - np.sqrt(np.pi/2)
+        elif call_blocking_admissible_prob > math.sqrt(2/(traffic_transmission_ch_num * np.pi)):
+            A = traffic_transmission_ch_num + math.sqrt(
+                np.pi / 2 + 2 * traffic_transmission_ch_num * np.log10(
+                    call_blocking_admissible_prob * math.sqrt(
+                        (traffic_transmission_ch_num * np.pi) / 2))) - math.sqrt(np.pi / 2)
             return A
 
     def calc_num_of_subscibers_per_cell(self, busy_hour_activity):
@@ -97,5 +98,5 @@ class NSP:
         :param land_area: площадь территории, на которой проектируется сеть
         """
         N_bc = self.calc_total_num_of_base_stations()
-        R_c = np.sqrt((2/(3 / np.sqrt(3)) * (land_area / N_bc)))
+        R_c = math.sqrt((2/(3 / math.sqrt(3)) * (land_area / N_bc)))
         return R_c
