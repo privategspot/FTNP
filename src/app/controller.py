@@ -1,0 +1,3 @@
+class ConsoleController:
+
+    pass
